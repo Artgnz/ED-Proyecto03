@@ -1,4 +1,4 @@
-package src;
+package src.edd;
 
 import java.lang.Comparable;
 import java.util.InputMismatchException;
@@ -6,7 +6,7 @@ import java.util.Scanner;
 import java.io.Serializable;
 
 public class Usuario implements Comparable, Serializable {
-    private int cuenta;
+    private Cuenta cuenta;
     private String nombreUsuario;
     private String contrasena;
 
@@ -18,7 +18,7 @@ public class Usuario implements Comparable, Serializable {
     }
 
     //getters
-    public int getCuenta() {
+    public Cuenta getCuenta() {
         return cuenta;
     }
     
@@ -35,10 +35,10 @@ public class Usuario implements Comparable, Serializable {
     }
 
     public boolean equals(Object o){
-        if(!obj.getClass().equals(this.getClass())){
+        if(!o.getClass().equals(this.getClass())){
             return false;
         }else{
-            Usuario m=(Usuario) obj;
+            Usuario m=(Usuario) o;
             if(m.nombreUsuario.equals(this.nombreUsuario)){
                 return true;
             }else{
@@ -63,8 +63,4 @@ public class Usuario implements Comparable, Serializable {
         }
     }
 
-    public equals(Object o) {
-        Usuario u = (Usuario) o;
-        return this.nombreUsuario.equals(u.nombreUsuario);
-    }
 }

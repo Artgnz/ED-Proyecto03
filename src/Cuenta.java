@@ -1,4 +1,4 @@
-package src;
+package src.edd;
 
 import java.io.Serializable;
 
@@ -33,7 +33,6 @@ public class Cuenta implements Serializable{
      * Método para retirar dinero de la cuenta
      * @param cantidad Cantidad a retirar
      */
-     */
     public void retirar(int cantidad) {
         if(cantidad < 0){
             System.out.println("Lo sentimos. No se puede retirar una cantidad negativa");
@@ -51,7 +50,7 @@ public class Cuenta implements Serializable{
      * Método para consultar el saldo de la cuenta
      */
     public String consultarSaldo() {
-        return "Usted cuenta con "this.saldoDisponible;
+        return "Usted cuenta con " + this.saldoDisponible;
     }
 
     /**
