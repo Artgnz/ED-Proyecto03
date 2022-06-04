@@ -29,6 +29,14 @@ public class Cuenta implements Serializable{
         historialCuenta.add("Se realizó un depósito por: "+ cantidad);  
 }
 
+    public double getSaldo() {
+        return saldoDisponible;
+    }
+
+    public double setSaldo(double saldo) {
+        return saldoDisponible += saldo;
+    }
+
     /**
      * Método para retirar dinero de la cuenta
      * @param cantidad Cantidad a retirar
