@@ -11,7 +11,8 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int opcion = 0;
         System.out.println("Bienvenido al sistema de gestion de cuentas");
-        System.out.println("1. Iniciar sesion");
+        System.out.println("1. Iniciar sesion");//una vez que se inicie sesión dar oportunidad de hacer que 
+        //pueda mover los ajustes de la cuenta 
         System.out.println("2. Crear cuenta");
         System.out.println("3. Comenzar a apostar");
         System.out.println("3. Salir");
