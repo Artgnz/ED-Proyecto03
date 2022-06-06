@@ -14,8 +14,19 @@ public class Candidato {
      * Método contructor de candidatos
      */
     public Candidato() {
-        int habilidad = (int) (Math.random() * 100);
-        double probabilidadGanar = 0;
+        int minimaHabilidad = 50;
+        int maximaHabilidad = 400;
+        double habilidad = Math.random()*(maximaHabilidad-minimaHabilidad);
+    }
+
+
+    public double getHabilidad() {
+        return this.habilidad;
+    }
+
+    public void setHabilidad(double habilidad) {
+        this.habilidad = habilidad;
     }
     
-}
+    }
+

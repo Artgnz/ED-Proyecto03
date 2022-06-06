@@ -53,6 +53,16 @@ public class Cuenta implements Serializable{
         }
     }
 
+    public void retirarApuesta(double cantidad) {
+        historialApuestasHechas.add("Se hizo una apuesta");
+        this.saldoDisponible -= cantidad;
+    }
+
+    public void depositarPremio(double cantidad) {
+        historialApuestasHechas.add("Se ganó una apuesta");
+        this.saldoDisponible += cantidad;
+    }
+
 
     /**
      * Método para consultar el saldo de la cuenta

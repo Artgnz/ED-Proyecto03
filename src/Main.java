@@ -15,7 +15,7 @@ public class Main {
         //pueda mover los ajustes de la cuenta 
         System.out.println("2. Crear cuenta");
         System.out.println("3. Comenzar a apostar");
-        System.out.println("3. Salir");
+        System.out.println("4. Salir");
         System.out.println("Ingrese una opcion: ");
         try{
             opcion = sc.nextInt();
