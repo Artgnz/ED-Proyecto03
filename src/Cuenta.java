@@ -6,7 +6,7 @@ import java.io.Serializable;
 public class Cuenta implements Serializable{
 
     //Atributos de la cuenta
-    private int saldoDisponible;
+    private double saldoDisponible;
     Lista<String> historialCuenta = new Lista<String>();
     Lista<String> historialApuestasHechas = new Lista<String>();
 

@@ -10,22 +10,35 @@ import java.io.Serializable;
  */
 public class Candidato {
     
+    int minimaHabilidad;
+    int maximaHabilidad;
+    String nombre;
+    
+    double habilidadDecimal;
+    int habilidad;
     /**
      * Método contructor de candidatos
      */
-    public Candidato() {
-        int minimaHabilidad = 50;
-        int maximaHabilidad = 400;
-        double habilidad = Math.random()*(maximaHabilidad-minimaHabilidad);
+    public Candidato(String nombre) {
+        this.nombre = nombre;
+        this.habilidadDecimal = Math.random()*(400-50);
+        this.habilidad = (int) habilidadDecimal;
+       
     }
 
+    /**
+     * Método que devuelve el nombre del candidato
+     */
+    public String getNombre() {
+        return this.nombre;
+    }
 
     public double getHabilidad() {
         return this.habilidad;
     }
 
-    public void setHabilidad(double habilidad) {
-        this.habilidad = habilidad;
+    public void setHabilidad(int  habilidad) {
+       this.habilidad = habilidad;
     }
     
     }

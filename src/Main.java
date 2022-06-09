@@ -7,22 +7,48 @@ import java.io.Serializable;
 
 public class Main {
     
-    public int Bienvenida(){
+    public static void main(String[] args) {
+        // TODO code application logic here
         Scanner sc = new Scanner(System.in);
-        int opcion = 0;
-        System.out.println("Bienvenido al sistema de gestion de cuentas");
-        System.out.println("1. Iniciar sesion");//una vez que se inicie sesión dar oportunidad de hacer que 
-        //pueda mover los ajustes de la cuenta 
-        System.out.println("2. Crear cuenta");
-        System.out.println("3. Comenzar a apostar");
-        System.out.println("4. Salir");
-        System.out.println("Ingrese una opcion: ");
-        try{
+        int opcion;
+        do{ System.out.println("BIENVENIDX AL SISTEMA DE APUESTAS" + "\n" + "¿Qué desea hacer?");
+            System.out.println("1. Deseo ver el torneo");
+            System.out.println("2. Deseo ver las carreras");
+            System.out.println("3. Salir");
+            System.out.println("Ingrese una opcion: ");
             opcion = sc.nextInt();
-        }catch(InputMismatchException e){
-            System.out.println("Opcion invalida");
-            opcion = Bienvenida();
-        }
-        return opcion;
+            switch(opcion){
+                case 1:
+                    System.out.println("Antes de poder comenzar a ver el torneo, deberá registrarse, en caso de que ya tenga una cuenta, ingrese su nombre de usuario: ");
+                    //cuando el usuario ya se encontraba en el sistema
+
+                    //cuando el usuario aún no se encontraba en el sistema
+                    String nombreUsuario = sc.next();
+                    //al momento de generar el nuevo usuario también se genera su cuenta como uno de sus atributos
+                    Usuario usuario = new Usuario(nombreUsuario);
+                    Cuenta usuarioCuenta = usuario.getCuenta();
+                    System.out.println("\nBienvenidx " + usuario.getNombreUsuario() + " al sistema de apuestas del Torneo.");
+                    Torneo torneo = new Torneo();
+            do {
+                    //se notifica al usuario los candidatos que competirán en la partida y el sus respectivos montos de apuesta
+                    torneo.nuevaPartida(usuario, usuarioCuenta);
+                     //se dan los segundos para que el usuario decida y haga la apuesta
+                    //se notifica al usuario el resultado de la partida
+            } while (torneo.getCandidatos().size() > 1);
+                    torneo.nombrarGanador();
+                    break;
+                case 2:
+                    System.out.println("Antes de poder comenzar a ver las carreras, deberá registrarse, en caso de que ya tenga una cuenta, ingrese su nombre de usuario: ");
+                
+                    break;
+                case 3:
+                    System.out.println("Vuelva pronto (:");
+                    break;
+                default:
+                    System.out.println("Opcion inválida");
+            }
+        }while(opcion!=3);
     }
+    
+    
 }

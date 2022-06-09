@@ -8,13 +8,11 @@ import java.io.Serializable;
 public class Usuario implements Comparable, Serializable {
     private Cuenta cuenta;
     private String nombreUsuario;
-    private String contrasena;
 
     //constructor
-    public Usuario(String nombreUsuario, String contrasena) {
-        cuenta = new Cuenta();
+    public Usuario(String nombreUsuario) {
+        this.cuenta = new Cuenta();
         this.nombreUsuario = nombreUsuario;
-        this.contrasena = contrasena;
     }
 
     //getters
@@ -24,10 +22,6 @@ public class Usuario implements Comparable, Serializable {
     
     public String getNombreUsuario() {
         return nombreUsuario;
-    }
-
-    public String getContrasena() {
-        return contrasena;
     }
 
     public String toString(){
