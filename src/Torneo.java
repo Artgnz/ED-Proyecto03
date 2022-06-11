@@ -10,12 +10,14 @@ import java.util.InputMismatchException;
  */
 public class Torneo {
 
+        //atributos
     public Lista<Candidato> candidatos = new Lista<>();
     Iterator<Candidato> iterador = candidatos.iterator();
 
     public Usuario usuario;
     public Cuenta cuenta;
 
+        //constructor de un torneo
     public Torneo(){
         for(int i = 1; i< 17; i++){
             Candidato candidato = new Candidato("Candidato " + i);
@@ -31,6 +33,9 @@ public class Torneo {
         }
     }
     
+    /**
+     * Método que devuelve la lista donde se están guardando los candidatos
+     */
     public Lista getCandidatos(){
         return candidatos;
     }
@@ -38,6 +43,8 @@ public class Torneo {
 
     /**
      * Método para generar las partidas en las que se enfrentarán los candidatos
+     * @param usuario
+     * @param cuenta
      */
 
     public void nuevaPartida(Usuario usuario, Cuenta cuenta){
