@@ -64,12 +64,11 @@ public class Usuario implements Comparable, Serializable {
         Scanner sc = new Scanner(System.in);
         int opcion;
         do{
-            System.out.println("BIENVENIDO A AJUSTES DE CUENTA" +"\n" + "¿Qué deseas realizar" );
+            System.out.println("Bienvenidx a ajustes de cuenta" +"\n" + "¿Qué deseas realizar?" );
             System.out.println("\n1. Depositar dinero a la cuenta");
             System.out.println("\n2. Retirar dinero de la cuenta");
             System.out.println("\n3. Visualizar saldo de la cuenta");
-            System.out.println("\n4. Visualizar movimientos de la cuenta");
-            System.out.println("\n5. Salir");
+            System.out.println("\n4. Salir");
             System.out.print("\nOpcion: ");
             try{
                 opcion = sc.nextInt();
@@ -82,7 +81,7 @@ public class Usuario implements Comparable, Serializable {
                 case 1:
                     System.out.print("\nIntroduzca el dinero a añadir: ");
                     try{
-                        cuenta.setSaldo(cuenta.getSaldo()+sc.nextDouble());
+                        cuenta.depositar(sc.nextInt());
                     }catch(InputMismatchException e){
                         System.out.println("\nError: Introduzca un numero entero.");
                         sc.nextLine();
@@ -91,23 +90,23 @@ public class Usuario implements Comparable, Serializable {
                 case 2:
                     System.out.print("\nIntroduzca el dinero a retirar: ");
                     try{
-                        cuenta.setSaldo(cuenta.getSaldo()-sc.nextDouble());
+                        cuenta.retirar(sc.nextInt());
                     }catch(InputMismatchException e){
                         System.out.println("\nError: Introduzca un numero entero.");
                         sc.nextLine();
                     }
                     break;
                 case 3:
-                    System.out.print("\nEl saldo actual de su cuenta es: " + cuenta.getSaldo());
-                    break;
-                case 4:
-                    System.out.print("\nLos movimientos de su cuenta son: " + cuenta.consultarHistorial());
+                    System.out.print("\nEl saldo actual de su cuenta es: ");
+                    System.out.printf("%.3fn%", cuenta.getSaldo());
                     break;
                 default:
-                    System.out.println("\nError: Opcion no valida. Teclee una nueva opcion.");
+                    System.out.println("\nVuelva pronto");
             }
         }while(opcion!=4);
     }
 
-
 }
+
+
+

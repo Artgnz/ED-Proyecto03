@@ -54,10 +54,20 @@ public class Cuenta implements Serializable{
     }
 
     public void retirarApuesta(double cantidad) {
-        historialApuestasHechas.add("Se hizo una apuesta");
-        this.saldoDisponible -= cantidad;
-    }
+            historialApuestasHechas.add("Se hizo una apuesta");
+            this.saldoDisponible -= cantidad;
+        }
+    
 
+    public boolean validarApuesta(double cantidadAAPostar){
+        if(this.saldoDisponible < cantidadAAPostar){
+            System.out.println("Lo sentimos. No hay suficiente fondos en su cuenta para realizar la apuesta, debes realizar un depósito para continuar jugando");
+            return false;
+        }else{
+            return true;
+        }
+
+    }
     public void depositarPremio(double cantidad) {
         historialApuestasHechas.add("Se ganó una apuesta");
         this.saldoDisponible += cantidad;
@@ -103,20 +113,4 @@ public class Cuenta implements Serializable{
         return historialApuestasHechas;
     }
 
-    /**
-     * Método para abonar al dinero ganado luego de que la apuesta resultara favorable
-     * @param cantidad a abonar
-     */
-    public void depositoApuestaGanada(int cantidad){
-        this.saldoDisponible += cantidad;
-        historialCuenta.add("Depósito por apuesta ganada por: "+ cantidad);
-    }
-
-    /**
-     * Método para retirar el dinero perdido luego de que la apuesta no resultara favorable
-     */
-    public void retiroApuestaPerdida(int cantidad){
-        this.saldoDisponible -= cantidad;
-        historialCuenta.add("Retiro por apuesta perdida por: "+ cantidad);
-    }
 }

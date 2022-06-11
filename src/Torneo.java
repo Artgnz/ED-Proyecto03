@@ -2,6 +2,7 @@ package src.edd;
 
 import java.util.Iterator;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 
 /**
@@ -41,6 +42,8 @@ public class Torneo {
 
     public void nuevaPartida(Usuario usuario, Cuenta cuenta){
 
+        
+
         Candidato candidato1 = candidatos.pop();
         candidatos.shuffle();
         Candidato candidato2 = candidatos.pop();
@@ -56,25 +59,33 @@ public class Torneo {
         double cuotaCandidato1 = 1/probabilidadCandidato1;
         double cuotaCandidato2 = 1/probabilidadCandidato2;
         System.out.println("Es hora de apostar, bienvenidx a la partida de " + candidato1.getNombre()+  " VS " + candidato2.getNombre());
-        System.out.println("Si desea apostar por el " + candidato1.getNombre()+ " pulse 1, la cuota de apuesta es de " + cuotaCandidato1 + " pesos mexicanos");
-        System.out.println("Si desea apostar por el "+ candidato2.getNombre() + " pulse 2, la cuota de apuesta es de " + cuotaCandidato2 + " pesos mexicanos");
+        System.out.println("Si desea apostar por el " + candidato1.getNombre()+ " pulse 1, la cuota de apuesta es de: " );
+        System.out.printf("%.3f%n", cuotaCandidato1);
+        System.out.println("Si desea apostar por el "+ candidato2.getNombre() + " pulse 2, la cuota de apuesta es de: " );
+        System.out.printf("%.3f%n", cuotaCandidato2);
         Scanner scanner = new Scanner(System.in);
              int opcion = scanner.nextInt();//por quien quizo apostar el usuario
 
              //se descuenta la apuesta de la cuenta del usuario
-             if(opcion == 1){
-            cuenta.retirarApuesta(cuotaCandidato1);
-            System.out.println(cuenta.consultarSaldo());
-             }
-             else if(opcion == 2){
-            cuenta.retirarApuesta(cuotaCandidato2);
-            System.out.println(cuenta.consultarSaldo());
-             }
-            else{
-            System.out.println("Opcion invalida");
-             }
+             try {
+                if(opcion == 1){
+                    if(cuenta.validarApuesta(cuotaCandidato1) == true){
+                       cuenta.retirarApuesta(cuotaCandidato1);
+                       System.out.println(cuenta.consultarSaldo());
+                    } else{
+                        usuario.ajustesCuenta();
+                    }
+                }
+                else if(opcion == 2){
+                    if(cuenta.validarApuesta(cuotaCandidato2) == true){
+                       cuenta.retirarApuesta(cuotaCandidato2);
+                       System.out.println(cuenta.consultarSaldo());
+                    } else{
+                        usuario.ajustesCuenta();
+                    }
+                }
 
-//vemos quien gana la partida
+                //vemos quien gana la partida
              double x = Math.random();
              boolean ganoC1 = false;
              boolean ganoC2 = false;
@@ -95,7 +106,8 @@ public class Torneo {
                     //calculamos la cuota que ganará el usuario por haber apostado por el candidato 1
                     double premioGanador = cuotaCandidato1*cuotaCandidato1;
                     cuenta.depositarPremio(premioGanador);
-                    System.out.println("Felicidades, has ganado la apuesta, se abonará a tu cuenta " + premioGanador + " pesos mexicanos");
+                    System.out.println("Felicidades, has ganado la apuesta, se abonará a tu cuenta ");
+                    System.out.printf("%.3f%n", premioGanador);
                     System.out.println(cuenta.consultarSaldo());
                 } else{
                     System.out.println("Lo siento, has perdido la apuesta");
@@ -107,14 +119,24 @@ public class Torneo {
                     //calculamos la cuota que ganará el usuario por haber apostado por el candidato 2
                     double premioGanador = cuotaCandidato2*cuotaCandidato2;
                     cuenta.depositarPremio(premioGanador);
-                    System.out.println("Felicidades, has ganado la apuesta, se abonará a tu cuenta " + premioGanador + " pesos mexicanos");
+                    System.out.println("Felicidades, has ganado la apuesta, se abonará a tu cuenta: " );
+                    System.out.printf("%.3f%n", premioGanador);
                     cuenta.consultarSaldo();
                 } else{
                     System.out.println("Lo siento, has perdido la apuesta");
                     cuenta.consultarSaldo();
                         }
                   }
-    }
+
+             } catch (InputMismatchException e) {
+                System.out.println("Error, opción invalida");
+             }
+                 
+             }
+            
+             
+
+    
 
        
     /**
