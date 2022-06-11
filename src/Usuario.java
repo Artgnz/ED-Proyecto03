@@ -98,7 +98,7 @@ public class Usuario implements Comparable, Serializable {
                     break;
                 case 3:
                     System.out.print("\nEl saldo actual de su cuenta es: ");
-                    System.out.printf("%.3fn%", cuenta.getSaldo());
+                    System.out.printf("%.2f%n", cuenta.getSaldo());
                     break;
                 default:
                     System.out.println("\nVuelva pronto");

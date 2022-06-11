@@ -58,6 +58,8 @@ public class Torneo {
         //Mostramos al usuario las cuotas por apostar de cada uno de los candidatos
         double cuotaCandidato1 = 1/probabilidadCandidato1;
         double cuotaCandidato2 = 1/probabilidadCandidato2;
+        double cuotaApostada = 0;
+        double cuotaApostada2 = 0;
         System.out.println("Es hora de apostar, bienvenidx a la partida de " + candidato1.getNombre()+  " VS " + candidato2.getNombre());
         System.out.println("Si desea apostar por el " + candidato1.getNombre()+ " pulse 1, la cuota de apuesta es de: " );
         System.out.printf("%.3f%n", cuotaCandidato1);
@@ -69,16 +71,20 @@ public class Torneo {
              //se descuenta la apuesta de la cuenta del usuario
              try {
                 if(opcion == 1){
-                    if(cuenta.validarApuesta(cuotaCandidato1) == true){
-                       cuenta.retirarApuesta(cuotaCandidato1);
+                    System.out.println("Ingrese la cuota que desea apostar");
+                    cuotaApostada = scanner.nextDouble();
+                    if(cuenta.validarApuesta(cuotaApostada) == true){
+                       cuenta.retirarApuesta(cuotaApostada);
                        System.out.println(cuenta.consultarSaldo());
                     } else{
                         usuario.ajustesCuenta();
                     }
                 }
                 else if(opcion == 2){
-                    if(cuenta.validarApuesta(cuotaCandidato2) == true){
-                       cuenta.retirarApuesta(cuotaCandidato2);
+                    System.out.println("Ingrese la cuota que desea apostar");
+                    cuotaApostada2 = scanner.nextDouble();
+                    if(cuenta.validarApuesta(cuotaApostada2) == true){
+                       cuenta.retirarApuesta(cuotaApostada2);
                        System.out.println(cuenta.consultarSaldo());
                     } else{
                         usuario.ajustesCuenta();
@@ -104,7 +110,7 @@ public class Torneo {
              if(opcion == 1){
                 if(ganoC1){
                     //calculamos la cuota que ganará el usuario por haber apostado por el candidato 1
-                    double premioGanador = cuotaCandidato1*cuotaCandidato1;
+                    double premioGanador = cuotaCandidato1*cuotaApostada;
                     cuenta.depositarPremio(premioGanador);
                     System.out.println("Felicidades, has ganado la apuesta, se abonará a tu cuenta ");
                     System.out.printf("%.3f%n", premioGanador);
@@ -117,7 +123,7 @@ public class Torneo {
                     else if (opcion == 2){
                 if(ganoC2){
                     //calculamos la cuota que ganará el usuario por haber apostado por el candidato 2
-                    double premioGanador = cuotaCandidato2*cuotaCandidato2;
+                    double premioGanador = cuotaCandidato2*cuotaApostada2;
                     cuenta.depositarPremio(premioGanador);
                     System.out.println("Felicidades, has ganado la apuesta, se abonará a tu cuenta: " );
                     System.out.printf("%.3f%n", premioGanador);
