@@ -4,7 +4,12 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.io.Serializable;
 import java.util.Random;
-
+/**
+ *Clase que representa a una carrera del sistema de apuestas.
+ * @author Arturo González Peñaloza
+ * @author Emilio Arsenio Raudry Rico
+ * @author Fernanda Ameyalli Osorio Morales
+*/
 public class Carrera{
     private Competidor[] competidores;
     private Competidor[] ranking;
@@ -12,7 +17,9 @@ public class Carrera{
     private Usuario usuario;
     private Cuenta cuenta;
     private static Scanner sc;
-
+    /**
+     *Constructor sin parametros.
+     */
     public Carrera(){
 	//Crear los competidores
 	competidores = new Competidor[10];
@@ -29,7 +36,11 @@ public class Carrera{
 
 	this.idCarrera = 0;
     }
-
+    /**
+     *Permite la ejecucion de una carrera.
+     *@param usuario Usuario.
+     *@param cuenta Cuenta del usuario.
+     */
     public void ejecutarCarrera(Usuario usuario, Cuenta cuenta){
 
         this.usuario = usuario;
@@ -90,7 +101,9 @@ public class Carrera{
 	this.incrementarId();
 	
     }
-
+    /**
+       Crea un historial con las ultimas cinco posiciones de cada competidor.
+     */
     public void crearHistorial(){
 
 	Random aleatorio = new Random();
@@ -111,7 +124,9 @@ public class Carrera{
 	    }   
 	}	
     }
-
+    /**
+     *Posiciona a los competidores en sus respectivos lugares una vez iniciada la carrera.
+     */
     public void rankeo(){
 	Competidor mayor = this.obtenerMayor();
 	Random aleatorio = new Random();
@@ -131,6 +146,10 @@ public class Carrera{
 	}
     }
 
+    /**
+     *Devuelve al primer lugar, aquel competidor con mayores probabilidades de ganar.
+     *@return Competidor Competidor ganador.
+     */
     public Competidor obtenerMayor(){
 	Competidor mayor=null;
 	double mayorProba=0;
@@ -143,25 +162,34 @@ public class Carrera{
 	}
 	return mayor;
     }
-    
+    /**
+     *Incrementa en 1 al Id de la carrera.
+     */
     public void incrementarId(){
 	this.idCarrera = this.idCarrera + 1;
     }
-    
+
+    /**
+     *Calcula las probabilidades y cuotas de cada competidor.
+     */
     public void calcularCompetidores(){
 	for(int i = 0; i<10; i++){
 	    competidores[i].calcularProbabilidad(10, competidores[i].getHistorial().size());
 	    competidores[i].calcularCuota();
 	}
     }
-
+    /**
+     *Imprime las cuotas de los jugadores.
+     */
     public void imprimirCuotas(){
 	System.out.println("Cuotas de los competidores: ");
 	for(int i=0; i<10; i++){
 	    System.out.println(competidores[i].getNombre() + ": " + competidores[i].getCuota());
 	}
     }
-
+    /**
+     *Imprime los resultados de la carrera.
+     */
     public void imprimirResultados(){
 	System.out.println("Resultados de la carrera: ");
 	for(int i = 0; i<10;i++){
