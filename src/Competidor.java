@@ -35,7 +35,7 @@ public class Competidor {
      *@param s Cantidad de carreras en las que ha competido.
      */
     public void calcularProbabilidad(int n, int s){
-	this.probabilidad = (s * (n+1) - sumatoria(this.historial)) / (s * (n * (n+1))/2);
+	this.probabilidad = (s * (n+1) - sumatoria(this.historial)) / (s * ((double) n * (n+1))/2);
     }
 
     /**

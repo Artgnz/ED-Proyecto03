@@ -2,7 +2,9 @@ package src.edd;
 
 import java.io.Serializable;
 
-
+/**
+ * Clase que moldea las cuentas de los usuarios que participarán en el torneo
+ */
 public class Cuenta implements Serializable{
 
     //Atributos de la cuenta
@@ -29,10 +31,17 @@ public class Cuenta implements Serializable{
         historialCuenta.add("Se realizó un depósito por: "+ cantidad);  
 }
 
+    /**
+     * Método que muestra el saldo disponible en la cuenta
+     */
     public double getSaldo() {
         return saldoDisponible;
     }
 
+    /**
+     * Mẃtodo que modifica el saldo disponible en la cuenta
+     * @param saldo
+     */
     public double setSaldo(double saldo) {
         return saldoDisponible += saldo;
     }
@@ -53,12 +62,19 @@ public class Cuenta implements Serializable{
         }
     }
 
+    /**
+     * Método que retira el dinero que se pierde al realizar una apuesta y lo guarda en un historial
+     * @param cantidad a retirar
+     */
     public void retirarApuesta(double cantidad) {
             historialApuestasHechas.add("Se hizo una apuesta");
             this.saldoDisponible -= cantidad;
         }
     
-
+    /**
+     * Booleano que verifica que haya suficientes fondos en la cuenta para realizar una apuesta
+     * @param cantidadAApostar
+     */
     public boolean validarApuesta(double cantidadAAPostar){
         if(this.saldoDisponible < cantidadAAPostar){
             System.out.println("Lo sentimos. No hay suficiente fondos en su cuenta para realizar la apuesta, debes realizar un depósito para continuar jugando");
@@ -68,6 +84,11 @@ public class Cuenta implements Serializable{
         }
 
     }
+
+    /**
+     * Método que deposita la cantidad que se gana si la apuesta resulta favorable
+     * @param cantidad que se ganó
+     */
     public void depositarPremio(double cantidad) {
         historialApuestasHechas.add("Se ganó una apuesta");
         this.saldoDisponible += cantidad;

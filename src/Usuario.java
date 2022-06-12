@@ -5,6 +5,9 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.io.Serializable;
 
+/**
+ * Clase que moldea el comportamiento de los usuarios que podrán apostar en nuestro sistema de apuestas
+ */
 public class Usuario implements Comparable, Serializable {
     private Cuenta cuenta;
     private String nombreUsuario;
@@ -28,6 +31,10 @@ public class Usuario implements Comparable, Serializable {
         return nombreUsuario ;
     }
 
+    /**
+     * Método que compara dos usuarios
+     * @param o el otro usuario a comparar
+     */
     public boolean equals(Object o){
         if(!o.getClass().equals(this.getClass())){
             return false;
@@ -41,6 +48,10 @@ public class Usuario implements Comparable, Serializable {
         }
     }
 
+    /**
+     * Método que compara dos usuarios
+     * @param o el otro usuario a comparar
+     */
     public int compareTo(Object o) {
         if(!o.getClass().equals(this.getClass())){
             throw new IllegalArgumentException("Los objetos no pertenecen a la misma clase");
@@ -98,7 +109,7 @@ public class Usuario implements Comparable, Serializable {
                     break;
                 case 3:
                     System.out.print("\nEl saldo actual de su cuenta es: ");
-                    System.out.printf("%.3fn%", cuenta.getSaldo());
+                    System.out.printf("%.2f%n", cuenta.getSaldo());
                     break;
                 default:
                     System.out.println("\nVuelva pronto");

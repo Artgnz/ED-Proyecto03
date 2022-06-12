@@ -253,6 +253,14 @@ public class ArbolBinarioBusqueda<T extends Comparable> extends ArbolBinario<T> 
     //#################################################################################################################################################################################################
 
     /**
+     * Busca un elemento en el árbol.
+     * @param elem Elemento que se busca.
+     * @return boolean Si se encuentra el elemento.
+     */
+    public boolean search(T elem) {
+        return search(raiz, elem);
+    }
+    /**
      * Metodo para buscar un elemento en el arbol
      * @param raiz el nodo raiz del arbol
      * @param elemento el elemento a buscar

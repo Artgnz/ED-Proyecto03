@@ -36,69 +36,93 @@ public class Carrera{
 
 	this.idCarrera = 0;
     }
+
+    public void prepararCarrera(){
+	System.out.println("1");
+
+	if(this.idCarrera==0)
+	    this.crearHistorial();
+	System.out.println("2");
+
+	this.calcularCompetidores();
+	System.out.println("3");
+    }
     /**
      *Permite la ejecucion de una carrera.
      *@param usuario Usuario.
      *@param cuenta Cuenta del usuario.
      */
-    public void ejecutarCarrera(Usuario usuario, Cuenta cuenta){
+    public void ejecutarCarrera(Usuario usuario, Cuenta cuenta, int respuesta){
 
+	
         this.usuario = usuario;
         this.cuenta = cuenta;
+	if (respuesta == 1) {
+	    System.out.println("Momento de apostar, apueste al caballo que crea que va a ganar.");
+	    sc = new Scanner(System.in);
 
-	if(this.idCarrera==0)
-	    this.crearHistorial();
+	    int opcion = getInt("Introduzca el numero del caballo (1-10): ", "Ingerese una opcion valida.",1,10);
 
-	this.calcularCompetidores();
-
-	System.out.println("Momento de apostar, apueste al caballo que crea que va a ganar.");
+	    sc.nextLine();
 	
-	this.imprimirCuotas();
-
-	sc = new Scanner(System.in);
-
-	int opcion = getInt("Introduzca el numero del caballo (1-10): ", "Ingerese una opcion valida.",1,10);
-
-	sc.nextLine();
+	    System.out.println("Introduzca la cantidad a apostar: ");
 	
-	System.out.println("Introduzca la cantidad a apostar: ");
+	    double entrada = sc.nextDouble();
 	
-	double entrada = sc.nextDouble();
+	    Competidor apostado = competidores[opcion-1];
 
-	//Las excepciones, no me acuerdo ahhh
+	    if(cuenta.validarApuesta(entrada) == true){
+		cuenta.retirarApuesta(entrada);
+		System.out.println(cuenta.consultarSaldo());
+	    }
+
+	    else{
+		usuario.ajustesCuenta();
+	    }
+
+	    System.out.println("Comienza carrera!");
 	
-	Competidor apostado = competidores[opcion-1];
+	    this.rankeo();
 
-	if(cuenta.validarApuesta(entrada) == true){
-	    cuenta.retirarApuesta(entrada);
-	    System.out.println(cuenta.consultarSaldo());
-        }
+	    Competidor ganador = ranking[0];
 
-	else{
-	    usuario.ajustesCuenta();
-        }
+	    this.imprimirResultados();
 
-	System.out.println("Comienza carrera!");
+	    System.out.println("Ganador : " + ganador.getNombre());
+
+	    if(apostado.equals(ganador)){
+		System.out.println("Felicidades, has ganando la apuesta!");
+		apostado.calcularMonto(entrada);
+		cuenta.depositarPremio(apostado.getMonto());
+	    } else {
+		System.out.println("Has perdido.");
+	    }
 	
-	this.rankeo();
+	    for(int i=0; i<10; i++){
+		competidores[i].actualizarHistorial(i+1);
+	    }
 
-	Competidor ganador = ranking[0];
+	    this.incrementarId();
+	} else {
+	    System.out.println("Comienza carrera!");
+	
+	    this.rankeo();
 
-	this.imprimirResultados();
+	    System.out.println("acaba rankeo");
 
-	System.out.println("Ganador : " + ganador.getNombre());
+	    Competidor ganador = ranking[0];
 
-	if(apostado.equals(ganador)){
-	    System.out.println("Felicidades, has ganando la apuesta!");
-	    apostado.calcularMonto(entrada);
-	    cuenta.depositarPremio(apostado.getMonto());
+	    this.imprimirResultados();
+
+	    System.out.println("Ganador : " + ganador.getNombre());
+
+	    for(int i=0; i<10; i++){
+		competidores[i].actualizarHistorial(i+1);
+	    }	    
 	}
-	
-	for(int i=0; i<10; i++){
-	    competidores[i].actualizarHistorial(i+1);
-	}
 
-	this.incrementarId();
+	
+
 	
     }
     /**
@@ -115,8 +139,7 @@ public class Carrera{
 		int n;
 		
 		do{
-		     n = 1 + aleatorio.nextInt(9);
-
+		    n = 1 + aleatorio.nextInt(10);
 		}while(lista.contains(n));
 		
 		competidores[j].actualizarHistorial(n);
@@ -133,12 +156,14 @@ public class Carrera{
 	Lista<Integer> lista = new Lista<>();
 
 	for(int i=0;i<10; i++){
-	    if(competidores[i].equals(mayor))
+	    if(competidores[i].equals(mayor)) {
 		ranking[0]=competidores[i];
+		continue;
+	    }
 	    int n;
 
 	    do{
-		 n = 1 + aleatorio.nextInt(8);
+		 n = 1 + aleatorio.nextInt(9);
 	    }while(lista.contains(n));
 
 	    ranking[n]=competidores[i];
