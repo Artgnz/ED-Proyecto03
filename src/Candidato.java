@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * Clase que moldea a los candidatos que participarán en el Torneo
  */
-public class Candidato {
+public class Candidato implements Serializable {
     
     int minimaHabilidad;
     int maximaHabilidad;
