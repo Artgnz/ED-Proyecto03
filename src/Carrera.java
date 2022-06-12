@@ -151,7 +151,7 @@ public class Carrera{
      *@return Competidor Competidor ganador.
      */
     public Competidor obtenerMayor(){
-	Competidor mayor=null;
+	Competidor mayor = null;
 	double mayorProba=0;
 
 	for(int i=0; i<10; i++){
