@@ -51,6 +51,7 @@ public class Usuario implements Comparable, Serializable {
     /**
      * Método que compara dos usuarios
      * @param o el otro usuario a comparar
+
      */
     public int compareTo(Object o) {
         if(!o.getClass().equals(this.getClass())){

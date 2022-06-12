@@ -17,6 +17,13 @@ public class Carrera{
     private Usuario usuario;
     private Cuenta cuenta;
     private static Scanner sc;
+
+	public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_RED = "\u001B[31m";
+
     /**
      *Constructor sin parametros.
      */
@@ -58,14 +65,14 @@ public class Carrera{
         this.usuario = usuario;
         this.cuenta = cuenta;
 	if (respuesta == 1) {
-	    System.out.println("Momento de apostar, apueste al caballo que crea que va a ganar.");
+	    System.out.println(ANSI_GREEN + "Momento de apostar, apueste al caballo que crea que va a ganar." + ANSI_RESET);
 	    sc = new Scanner(System.in);
 
-	    int opcion = getInt("Introduzca el numero del caballo (1-10): ", "Ingerese una opcion valida.",1,10);
+	    int opcion = getInt(ANSI_GREEN + "Introduzca el numero del caballo (1-10): " + ANSI_RESET, "Ingrese una opcion valida.",1,10);
 
 	    sc.nextLine();
 	
-	    System.out.println("Introduzca la cantidad a apostar: ");
+	    System.out.println(ANSI_GREEN + "Introduzca la cantidad a apostar: " + ANSI_RESET);
 	
 	    double entrada = sc.nextDouble();
 	
@@ -80,7 +87,7 @@ public class Carrera{
 		usuario.ajustesCuenta();
 	    }
 
-	    System.out.println("Comienza carrera!");
+	    System.out.println(ANSI_CYAN + "Comienza carrera!" + ANSI_RESET);
 	
 	    this.rankeo();
 
@@ -88,14 +95,14 @@ public class Carrera{
 
 	    this.imprimirResultados();
 
-	    System.out.println("Ganador : " + ganador.getNombre());
+	    System.out.println(ANSI_CYAN + "Ganador : " + ganador.getNombre() + ANSI_RESET);
 
 	    if(apostado.equals(ganador)){
-		System.out.println("Felicidades, has ganando la apuesta!");
+		System.out.println(ANSI_GREEN + "Felicidades, has ganando la apuesta!"+ ANSI_RESET);
 		apostado.calcularMonto(entrada);
 		cuenta.depositarPremio(apostado.getMonto());
 	    } else {
-		System.out.println("Has perdido.");
+		System.out.println(ANSI_RED + "Has perdido." + ANSI_RESET);
 	    }
 	
 	    for(int i=0; i<10; i++){
@@ -104,17 +111,17 @@ public class Carrera{
 
 	    this.incrementarId();
 	} else {
-	    System.out.println("Comienza carrera!");
+	    System.out.println(ANSI_CYAN + "Comienza carrera!" + ANSI_RESET);
 	
 	    this.rankeo();
 
-	    System.out.println("acaba rankeo");
+	    System.out.println(ANSI_RED + "acaba rankeo" + ANSI_RESET);
 
 	    Competidor ganador = ranking[0];
 
 	    this.imprimirResultados();
 
-	    System.out.println("Ganador : " + ganador.getNombre());
+	    System.out.println(ANSI_CYAN + "Ganador : " + ganador.getNombre() + ANSI_RESET);
 
 	    for(int i=0; i<10; i++){
 		competidores[i].actualizarHistorial(i+1);
@@ -207,7 +214,7 @@ public class Carrera{
      *Imprime las cuotas de los jugadores.
      */
     public void imprimirCuotas(){
-	System.out.println("Cuotas de los competidores: ");
+	System.out.println(ANSI_CYAN + "Cuotas de los competidores: " + ANSI_RESET);
 	for(int i=0; i<10; i++){
 	    System.out.println(competidores[i].getNombre() + ": " + competidores[i].getCuota());
 	}
@@ -216,7 +223,7 @@ public class Carrera{
      *Imprime los resultados de la carrera.
      */
     public void imprimirResultados(){
-	System.out.println("Resultados de la carrera: ");
+	System.out.println(ANSI_GREEN + "Resultados de la carrera: " + ANSI_RESET);
 	for(int i = 0; i<10;i++){
 	    System.out.println("Posicion " + i + ": " + ranking[i].getNombre());
 	}
