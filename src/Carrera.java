@@ -5,6 +5,7 @@ import java.util.Scanner;
 import java.io.Serializable;
 import java.util.Random;
 import java.text.DecimalFormat;
+import java.util.Arrays;
 /**
  *Clase que representa a una carrera del sistema de apuestas.
  * @author Arturo González Peñaloza
@@ -185,7 +186,7 @@ public class Carrera{
      *@return Competidor Competidor ganador.
      */
     public Competidor obtenerMayor(){
-        Competidor[] aux = this.competidores;
+        Competidor[] aux = Arrays.copyOf(this.competidores, this.competidores.length);
 	double acumulador = 0;
 	double aleatorio = Math.random();
 	Competidor mayor = null;
@@ -246,9 +247,11 @@ public class Carrera{
      *Imprime los resultados de la carrera.
      */
     public void imprimirResultados(){
+	int n;
 	System.out.println(ANSI_GREEN + "Resultados de la carrera: " + ANSI_RESET);
 	for(int i = 0; i<10;i++){
-	    System.out.println("Posicion " + i + ": " + ranking[i].getNombre());
+	    n = i +1;
+	    System.out.println("Posicion " + n + ": " + ranking[i].getNombre());
 	}
     }
 
