@@ -47,8 +47,8 @@ public class Torneo implements Serializable{
 
     public void prepararPartida() {
         candidato1 = candidatos.pop();
-        candidatos.shuffle();
         candidato2 = candidatos.pop();
+        candidatos.shuffle();
         System.out.println("En la siguiente partida competirán " + candidato1.getNombre() + " VS " + candidato2.getNombre());
         double probabilidadCandidato1 = candidato1.getHabilidad() / (candidato1.getHabilidad()+candidato2.getHabilidad());
         double probabilidadCandidato2 = candidato2.getHabilidad() / (candidato1.getHabilidad()+candidato2.getHabilidad());
@@ -60,7 +60,7 @@ public class Torneo implements Serializable{
         System.out.printf("%.3f%n", cuotaCandidato1);
         System.out.println("Si desea apostar por el "+ candidato2.getNombre() + " pulse 2, la cuota de apuesta es de: " );
         System.out.printf("%.3f%n", cuotaCandidato2);
-        System.out.println("Si desea dejar de ver el torneo, presione -1");
+        System.out.println("Si desea dejar de ver el torneo, presione -2");
         System.out.println("Si desea no apostar, presione cualquier otra tecla.");
     }
 

@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.lang.Thread;
 import java.util.Scanner;
 
+import src.edd.Carrera;
 import src.edd.Usuarios;
 
 import java.io.InputStreamReader;
@@ -54,17 +55,20 @@ public class Main {
 
     private static Usuarios usuarios;
     private static Torneo torneo;
-
+    private static Carrera carrera;
+    
     private static void restaurarEstado() {
         usuarios = (Usuarios)Serializador.deSerializar("usuarios.ser");
         if (usuarios == null) {
-            System.out.println("fafa");
-
             usuarios = new Usuarios();
         }
         torneo = (Torneo)Serializador.deSerializar("torneo.ser");
         if (torneo == null) {
             torneo = new Torneo();
+        }
+        carrera = (Carrera)Serializador.deSerializar("carrera.ser");
+        if (carrera == null) {
+            carrera = new Carrera();
         }
     }
 
@@ -111,18 +115,69 @@ public class Main {
             case 1:
                 System.out.println("Recuerde que antes de poder empezar a apostar deberá contar con saldo disponible en su cuenta. Puede acceder a los ajustes de ella a continuación");
                 usuario.ajustesCuenta();
+                Serializador.serializar("usuarios.ser", usuarios);
                 System.out.println("\nBienvenidx " + usuario.getNombreUsuario() + " al sistema de apuestas del Torneo.");
-
-                while (torneo.getCandidatos().size() > 1) {
+                boolean bandera = true;
+                while (bandera) {
+                    while (torneo.getCandidatos().size() > 1) {
+                        System.out.println("##############################");
+                        Serializador.serializar("torneo.ser", torneo);
+                        torneo.prepararPartida();
+                        Thread thread2 = new Thread(() -> {
+                                try {
+                                    for (int segundos = 20; segundos > 0; segundos--) {
+                                        System.out.println("Faltan " + segundos + " segundos para que inicie la partida.");
+                                        Thread.sleep(1000);
+                                    }
+                                    System.out.println("La partida ha comenzado, presione algun número.");
+                                }catch(Exception e){
+                                }
+                        });
+                        thread2.start();
+                        Scanner scan = new Scanner(System.in);
+                        int respuesta = scan.nextInt();
+                        if (!thread2.isAlive()) {
+                            System.out.println("Como introdujo su respuesta cuando terminó el tiempo, no será considerado en esta partida.");
+                            respuesta = -1;
+                        }
+                        if (respuesta == -2) {
+                            thread2.interrupt();
+                            opcion = 3;
+                            System.out.println("Vuelva pronto :)");
+                            bandera = false;
+                            break;
+                        }
+                        while (thread2.isAlive()) {
+                        
+                        }
+                        torneo.nuevaPartida(usuario, usuarioCuenta, respuesta);
+                    }
+                    if (!bandera) {
+                        torneo.nombrarGanador();
+                        torneo = new Torneo();
+                    }
+                }
+                break;
+            case 2:
+                System.out.println("Recuerde que antes de poder empezar a apostar deberá contar con saldo disponible en su cuenta. Puede acceder a los ajustes de ella a continuación");
+                usuario.ajustesCuenta();
+                Serializador.serializar("usuarios.ser", usuarios);
+                
+                System.out.println("\nBienvenidx " + usuario.getNombreUsuario() + " al sistema de apuestas de carreras.");
+                while (true) {
                     System.out.println("##############################");
-
-                    torneo.prepararPartida();
+                    Serializador.serializar("carrera.ser", carrera);                    
+                    carrera.prepararCarrera();
+                    System.out.println("Cuotas:");
+                    carrera.imprimirCuotas();
+                    System.out.println("Si desea apostar presiona 1, si no, presione -2");
                     Thread thread2 = new Thread(() -> {
                             try {
                                 for (int segundos = 20; segundos > 0; segundos--) {
-                                    System.out.println("Faltan " + segundos + " segundos para que inicie la partida.");
+                                    System.out.println("Faltan " + segundos + " segundos para que inicie la carrera.");
                                     Thread.sleep(1000);
                                 }
+                                System.out.println("La ronda ha comenzado, presione algun número.");
                             }catch(Exception e){
                             }
                     });
@@ -130,27 +185,18 @@ public class Main {
                     Scanner scan = new Scanner(System.in);
                     int respuesta = scan.nextInt();
                     if (!thread2.isAlive()) {
-                        System.out.println("Como introdujo su respuesta cuando terminó el tiempo, no será considerado en esta partida.");
+                        System.out.println("Como introdujo su respuesta cuando terminó el tiempo, no será considerado en esta carrera.");                        
                         respuesta = -1;
                     }
-                    if (respuesta == -1) {
+                    if (respuesta == -2) {
                         thread2.interrupt();
                         opcion = 3;
                         System.out.println("Vuelva pronto :)");
                         break;
-                    }
-                    while (thread2.isAlive()) {
-                        
-                    }
-                    torneo.nuevaPartida(usuario, usuarioCuenta, respuesta);
+                    }                    
+                    carrera.ejecutarCarrera(usuario, usuarioCuenta, respuesta);
                 }
-                torneo.nombrarGanador();
-                break;
-            case 2:
-                System.out.println("Recuerde que antes de poder empezar a apostar deberá contar con saldo disponible en su cuenta. Puede acceder a los ajustes de ella a continuación");
-                usuario.ajustesCuenta();
-                System.out.println("\nBienvenidx " + usuario.getNombreUsuario() + " al sistema de apuestas de carreras Torneo.");
-                break;
+
             case 3:
                 System.out.println("Vuelva pronto (:");
                 break;
@@ -159,6 +205,5 @@ public class Main {
             }
         } while(opcion!=3);
         Serializador.serializar("usuarios.ser", usuarios);
-        Serializador.serializar("torneo.ser", torneo);
     }
 }
