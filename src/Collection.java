@@ -1,8 +1,10 @@
 package src.edd;
 
+import java.io.Serializable;
+
 //import java.util.Comparator;
 
-public interface Collection<T> extends Iterable<T>{
+public interface Collection<T> extends Iterable<T>, Serializable {
 
     /**
      * Agrega un elemento a la colección.
