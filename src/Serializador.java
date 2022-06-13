@@ -26,7 +26,6 @@ public class Serializador {
         try (FileOutputStream archivo = new FileOutputStream(nombreDeArchivo);
                 ObjectOutputStream salida = new ObjectOutputStream(archivo)) {
             salida.writeObject(objeto);
-            salida.writeObject(objeto);
             return true;
         } catch (Exception ex) {
             return false;

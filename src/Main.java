@@ -25,15 +25,27 @@ public class Main {
      * Restaura el estado de los atributos de {@code this}.
      */
     private static void restaurarEstado() {
-        usuarios = (Usuarios)Serializador.deSerializar("usuarios.ser");
+        try {
+            usuarios = (Usuarios)Serializador.deSerializar("usuarios.ser");
+        } catch (ClassCastException e) {
+            System.out.println("El archivo usuarios.ser está corrupto.");
+        }
         if (usuarios == null) {
             usuarios = new Usuarios();
         }
-        torneo = (Torneo)Serializador.deSerializar("torneo.ser");
+        try {
+            torneo = (Torneo)Serializador.deSerializar("torneo.ser");
+        } catch (ClassCastException e) {
+            System.out.println("El archivo torneo.ser está corrupto.");            
+        }
         if (torneo == null) {
             torneo = new Torneo();
         }
-        carrera = (Carrera)Serializador.deSerializar("carrera.ser");
+        try {
+            carrera = (Carrera)Serializador.deSerializar("carrera.ser");
+        } catch (ClassCastException e){
+            System.out.println("El archivo usuarios.ser está corrupto.");
+        }
         if (carrera == null) {
             carrera = new Carrera();
         }
@@ -68,6 +80,7 @@ public class Main {
                         usuario = new Usuario(nombreDeUsuario);
                         System.out.println("Se agregó a " + usuario + " al sistema.");
                         usuarios.agregaUsuario(new Usuario(nombreDeUsuario));
+                        Serializador.serializar("usuarios.ser", usuarios);
                         break;
                     }
                 }
@@ -204,3 +217,5 @@ public class Main {
         Serializador.serializar("usuarios.ser", usuarios);
     }
 }
+
+
