@@ -80,7 +80,9 @@ public class Usuario implements Comparable, Serializable {
             System.out.println("\n1. Depositar dinero a la cuenta");
             System.out.println("\n2. Retirar dinero de la cuenta");
             System.out.println("\n3. Visualizar saldo de la cuenta");
-            System.out.println("\n4. Salir");
+            System.out.println("\n4. Ver historial de apuestas:");
+            System.out.println("\n5. Ver historial de la cuenta:");
+            System.out.println("\n6. Salir");
             System.out.print("\nOpcion: ");
             try{
                 opcion = sc.nextInt();
@@ -90,32 +92,40 @@ public class Usuario implements Comparable, Serializable {
                 sc.nextLine();
             }
             switch(opcion){
-                case 1:
-                    System.out.print("\nIntroduzca el dinero a añadir: ");
-                    try{
-                        cuenta.depositar(sc.nextInt());
-                    }catch(InputMismatchException e){
-                        System.out.println("\nError: Introduzca un numero entero.");
-                        sc.nextLine();
-                    }
-                    break;
-                case 2:
-                    System.out.print("\nIntroduzca el dinero a retirar: ");
-                    try{
-                        cuenta.retirar(sc.nextInt());
-                    }catch(InputMismatchException e){
-                        System.out.println("\nError: Introduzca un numero entero.");
-                        sc.nextLine();
-                    }
-                    break;
-                case 3:
-                    System.out.print("\nEl saldo actual de su cuenta es: ");
-                    System.out.printf("%.2f%n", cuenta.getSaldo());
-                    break;
-                default:
-                    System.out.println("\nVuelva pronto");
+            case 1:
+                System.out.print("\nIntroduzca el dinero a añadir: ");
+                try{
+                    cuenta.depositar(sc.nextInt());
+                }catch(InputMismatchException e){
+                    System.out.println("\nError: Introduzca un numero entero.");
+                    sc.nextLine();
+                }
+                break;
+            case 2:
+                System.out.print("\nIntroduzca el dinero a retirar: ");
+                try{
+                    cuenta.retirar(sc.nextInt());
+                }catch(InputMismatchException e){
+                    System.out.println("\nError: Introduzca un numero entero.");
+                    sc.nextLine();
+                }
+                break;
+            case 3:
+                System.out.print("\nEl saldo actual de su cuenta es: ");
+                System.out.printf("%.2f%n", cuenta.getSaldo());
+                break;
+            case 4:
+                System.out.println("Historial de apuestas:");
+                System.out.println(cuenta.consultarHistorialApuestas());
+                System.out.println();
+                break;
+            case 5:
+                System.out.println(cuenta.consultarHistorial());
+                break;
+            default:
+                System.out.println("\nVuelva pronto");
             }
-        }while(opcion!=4);
+        }while(opcion!=6);
     }
 
 }
