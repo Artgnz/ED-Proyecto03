@@ -62,7 +62,7 @@ public class Carrera{
      *@param usuario Usuario.
      *@param cuenta Cuenta del usuario.
      */
-    public void ejecutarCarrera(Usuario usuario, Cuenta cuenta, int respuesta){
+    public void ejecutarCarrera(Usuario usuario, Cuenta cuenta, int respuesta, Thread thread) {
 
 	
         this.usuario = usuario;
@@ -89,7 +89,8 @@ public class Carrera{
 	    else{
 		usuario.ajustesCuenta();
 	    }
-
+	    
+	    while (thread.isAlive()) {}
 	    System.out.println(ANSI_CYAN + "Comienza carrera!" + ANSI_RESET);
 	
 	    this.rankeo();
