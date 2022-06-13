@@ -4,6 +4,8 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.io.Serializable;
 import java.util.Random;
+import java.text.DecimalFormat;
+import java.util.Arrays;
 /**
  *Clase que representa a una carrera del sistema de apuestas.
  * @author Arturo González Peñaloza
@@ -31,9 +33,10 @@ public class Carrera{
 	//Crear los competidores
 	competidores = new Competidor[10];
         ranking = new Competidor[10];
-
+	int n;
 	for(int i=0; i<10;i++ ){
-	    Competidor competidor = new Competidor("Caballo " + i+1);
+	    n= i+1;
+	    Competidor competidor = new Competidor("Caballo " + n);
 	    competidores[i] = competidor;
 	}
 
@@ -183,17 +186,37 @@ public class Carrera{
      *@return Competidor Competidor ganador.
      */
     public Competidor obtenerMayor(){
-	Competidor mayor=null;
-	double mayorProba=0;
-
-	for(int i=0; i<10; i++){
-	    if(competidores[i].getProbabilidad()>mayorProba){
-		mayorProba = competidores[i].getProbabilidad();
-		mayor = competidores[i];
+        Competidor[] aux = Arrays.copyOf(this.competidores, this.competidores.length);
+	double acumulador = 0;
+	double aleatorio = Math.random();
+	Competidor mayor = null;
+	bubbleSort(aux);
+	for(int i=0; i<10;i++){
+	    if(( aleatorio < aux[i].getProbabilidad() + acumulador) || (i==9)){
+		mayor = aux[i];
+		break;
 	    }
-	}
+	acumulador = acumulador + aux[i].getProbabilidad();
+	} 
 	return mayor;
     }
+
+   /**
+     Metodo auxiliar que permite ordenar un arreglo de Competidores por Bubblesort con base en sus probabilides de ganar.
+     @param array Arreglo con los numeros a ordenar.
+     */
+    public static void bubbleSort(Competidor[] array){
+	for(int i=0; i < array.length; i++){ //Iterador que permite recorrer todo el arreglo.
+	    for(int j = 0; j < array.length - 1; j++){ //Iterador que permite recorrer a todo el arreglo, hasta poner el mayor al final de este
+		if(array[j].getProbabilidad() < array[j+1].getProbabilidad()){ //Si el elemento actual del arreglo es mayor que su sucesor, estos se intercambian
+		    Competidor aux = array[j];
+		    array[j] = array[j+1];
+		    array[j+1] = aux;
+		}
+	    }
+	}
+    }
+    
     /**
      *Incrementa en 1 al Id de la carrera.
      */
@@ -215,17 +238,20 @@ public class Carrera{
      */
     public void imprimirCuotas(){
 	System.out.println(ANSI_CYAN + "Cuotas de los competidores: " + ANSI_RESET);
+	DecimalFormat formato = new DecimalFormat("#.##");
 	for(int i=0; i<10; i++){
-	    System.out.println(competidores[i].getNombre() + ": " + competidores[i].getCuota());
+	    System.out.println(competidores[i].getNombre() + ": " + formato.format(competidores[i].getCuota()));
 	}
     }
     /**
      *Imprime los resultados de la carrera.
      */
     public void imprimirResultados(){
+	int n;
 	System.out.println(ANSI_GREEN + "Resultados de la carrera: " + ANSI_RESET);
 	for(int i = 0; i<10;i++){
-	    System.out.println("Posicion " + i + ": " + ranking[i].getNombre());
+	    n = i +1;
+	    System.out.println("Posicion " + n + ": " + ranking[i].getNombre());
 	}
     }
 
