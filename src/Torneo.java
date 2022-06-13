@@ -67,7 +67,7 @@ public class Torneo implements Serializable{
         System.out.println("Si desea apostar por el "+ candidato2.getNombre() + " pulse 2, la cuota de apuesta es de: " );
         System.out.printf("%.3f%n", cuotaCandidato2);
         System.out.println("Si desea dejar de ver el torneo, presione -2");
-        System.out.println("Si desea no apostar, presione cualquier otra tecla." + ANSI_RESET);
+        System.out.println("Si desea no apostar, presione cualquier otro número." + ANSI_RESET);
     }
 
     /**
@@ -75,7 +75,7 @@ public class Torneo implements Serializable{
      * @param usuario
      * @param cuenta
      */
-    public void nuevaPartida(Usuario usuario, Cuenta cuenta, int opcion){
+    public void nuevaPartida(Usuario usuario, Cuenta cuenta, int opcion, Thread thread){
         this.usuario = usuario;
         this.cuenta = cuenta;
 
@@ -96,6 +96,7 @@ public class Torneo implements Serializable{
                 System.out.println(ANSI_CYAN + "Ingrese la cuota que desea apostar");
                 cuotaApostada = scanner.nextDouble();
                 if(cuenta.validarApuesta(cuotaApostada) == true){
+                    System.out.println("Apuesta realizada.");
                     cuenta.retirarApuesta(cuotaApostada);
                     System.out.println(cuenta.consultarSaldo());
                 } else{
@@ -112,7 +113,8 @@ public class Torneo implements Serializable{
                     usuario.ajustesCuenta();
                 }
             }
-
+            while (thread.isAlive()) {
+            }
             //vemos quien gana la partida
             double x = Math.random();
             boolean ganoC1 = false;
@@ -135,7 +137,7 @@ public class Torneo implements Serializable{
                     double premioGanador = cuotaCandidato1*cuotaApostada;
                     cuenta.depositarPremio(premioGanador);
                     System.out.println(ANSI_CYAN + "Felicidades, has ganado la apuesta, se abonará a tu cuenta ");
-                    System.out.printf("%.3f%n", premioGanador + ANSI_RESET);
+                    System.out.printf("%.3f%s\n", premioGanador, ANSI_RESET);
                     System.out.println(cuenta.consultarSaldo());
                 } else{
                     System.out.println(ANSI_CYAN + "Lo siento, has perdido la apuesta" + ANSI_RESET);
@@ -148,7 +150,7 @@ public class Torneo implements Serializable{
                     double premioGanador = cuotaCandidato2*cuotaApostada2;
                     cuenta.depositarPremio(premioGanador);
                     System.out.println(ANSI_CYAN + "Felicidades, has ganado la apuesta, se abonará a tu cuenta: " );
-                    System.out.printf("%.3f%n", premioGanador + ANSI_RESET);
+                    System.out.printf("%.3f%s\n", premioGanador, ANSI_RESET);
                     cuenta.consultarSaldo();
                 } else{
                     System.out.println(ANSI_CYAN + "Lo siento, has perdido la apuesta" + ANSI_RESET);
@@ -159,7 +161,7 @@ public class Torneo implements Serializable{
         } catch (InputMismatchException e) {
             System.out.println(ANSI_RED + "Error, opción invalida" + ANSI_RESET);
         }
-                 
+
     }
             
              

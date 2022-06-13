@@ -744,7 +744,7 @@ public class Lista<T> implements Collection<T>, Serializable {
         Random random = new Random();
         int posicionAleatoria=0;
         T elem1,elem2;
-        for(int i=0;i<this.size();i++){
+        for(int i=0;i < this.size() - 1;i++){
             posicionAleatoria=random.nextInt(this.size()-1);
             elem1=this.elementoEnPos(i);
             elem2=this.elementoEnPos(posicionAleatoria);
