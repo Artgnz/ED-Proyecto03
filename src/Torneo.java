@@ -11,12 +11,6 @@ import java.io.Serializable;
  */
 public class Torneo implements Serializable{
 
-    public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_RED = "\u001B[31m";
-
     //atributos
     public Lista<Candidato> candidatos = new Lista<>();
     private Candidato[] siguientesCandidatos = new Candidato[2];
@@ -55,7 +49,7 @@ public class Torneo implements Serializable{
         candidato1 = candidatos.pop();
         candidato2 = candidatos.pop();
         candidatos.shuffle();
-        System.out.println(ANSI_CYAN + "En la siguiente partida competirán " + candidato1.getNombre() + " VS " + candidato2.getNombre());
+        System.out.println(Colors.ANSI_CYAN + "En la siguiente partida competirán " + candidato1.getNombre() + " VS " + candidato2.getNombre());
         double probabilidadCandidato1 = candidato1.getHabilidad() / (candidato1.getHabilidad()+candidato2.getHabilidad());
         double probabilidadCandidato2 = candidato2.getHabilidad() / (candidato1.getHabilidad()+candidato2.getHabilidad());
 
@@ -67,7 +61,7 @@ public class Torneo implements Serializable{
         System.out.println("Si desea apostar por el "+ candidato2.getNombre() + " pulse 2, la cuota de apuesta es de: " );
         System.out.printf("%.3f%n", cuotaCandidato2);
         System.out.println("Si desea dejar de ver el torneo, presione -2");
-        System.out.println("Si desea no apostar, presione cualquier otro número." + ANSI_RESET);
+        System.out.println("Si desea no apostar, presione cualquier otro número." + Colors.ANSI_RESET);
     }
 
     /**
@@ -93,7 +87,7 @@ public class Torneo implements Serializable{
         //se descuenta la apuesta de la cuenta del usuario
         try {
             if(opcion == 1){
-                System.out.println(ANSI_CYAN + "Ingrese la cuota que desea apostar");
+                System.out.println(Colors.ANSI_CYAN + "Ingrese la cuota que desea apostar");
                 cuotaApostada = scanner.nextDouble();
                 if(cuenta.validarApuesta(cuotaApostada) == true){
                     System.out.println("Apuesta realizada.");
@@ -104,7 +98,7 @@ public class Torneo implements Serializable{
                 }
             }
             else if(opcion == 2){
-                System.out.println("Ingrese la cuota que desea apostar"+ ANSI_RESET);
+                System.out.println("Ingrese la cuota que desea apostar"+ Colors.ANSI_RESET);
                 cuotaApostada2 = scanner.nextDouble();
                 if(cuenta.validarApuesta(cuotaApostada2) == true){
                     cuenta.retirarApuesta(cuotaApostada2);
@@ -120,12 +114,12 @@ public class Torneo implements Serializable{
             boolean ganoC1 = false;
             boolean ganoC2 = false;
             if(x < probabilidadCandidato1){
-                System.out.println(ANSI_CYAN + "El candidato 1 gana la partida");
+                System.out.println(Colors.ANSI_CYAN + "El candidato 1 gana la partida");
                 ganoC1 = true;
                 ganoC2 = false;
                 candidatos.add(candidato1);
             } else{
-                System.out.println("El candidato 2 gana la partida" + ANSI_RESET);
+                System.out.println("El candidato 2 gana la partida" + Colors.ANSI_RESET);
                 ganoC1 = false;
                 ganoC2 = true;
                 candidatos.add(candidato2);
@@ -136,11 +130,11 @@ public class Torneo implements Serializable{
                     //calculamos la cuota que ganará el usuario por haber apostado por el candidato 1
                     double premioGanador = cuotaCandidato1*cuotaApostada;
                     cuenta.depositarPremio(premioGanador);
-                    System.out.println(ANSI_CYAN + "Felicidades, has ganado la apuesta, se abonará a tu cuenta ");
-                    System.out.printf("%.3f%s\n", premioGanador, ANSI_RESET);
+                    System.out.println(Colors.ANSI_CYAN + "Felicidades, has ganado la apuesta, se abonará a tu cuenta ");
+                    System.out.printf("%.3f%s\n", premioGanador, Colors.ANSI_RESET);
                     System.out.println(cuenta.consultarSaldo());
                 } else{
-                    System.out.println(ANSI_CYAN + "Lo siento, has perdido la apuesta" + ANSI_RESET);
+                    System.out.println(Colors.ANSI_CYAN + "Lo siento, has perdido la apuesta" + Colors.ANSI_RESET);
                     System.out.println(cuenta.consultarSaldo());
                 }
             } 
@@ -149,17 +143,17 @@ public class Torneo implements Serializable{
                     //calculamos la cuota que ganará el usuario por haber apostado por el candidato 2
                     double premioGanador = cuotaCandidato2*cuotaApostada2;
                     cuenta.depositarPremio(premioGanador);
-                    System.out.println(ANSI_CYAN + "Felicidades, has ganado la apuesta, se abonará a tu cuenta: " );
-                    System.out.printf("%.3f%s\n", premioGanador, ANSI_RESET);
+                    System.out.println(Colors.ANSI_CYAN + "Felicidades, has ganado la apuesta, se abonará a tu cuenta: " );
+                    System.out.printf("%.3f%s\n", premioGanador, Colors.ANSI_RESET);
                     cuenta.consultarSaldo();
                 } else{
-                    System.out.println(ANSI_CYAN + "Lo siento, has perdido la apuesta" + ANSI_RESET);
+                    System.out.println(Colors.ANSI_CYAN + "Lo siento, has perdido la apuesta" + Colors.ANSI_RESET);
                     cuenta.consultarSaldo();
                 }
             }
 
         } catch (InputMismatchException e) {
-            System.out.println(ANSI_RED + "Error, opción invalida" + ANSI_RESET);
+            System.out.println(Colors.ANSI_RED + "Error, opción invalida" + Colors.ANSI_RESET);
         }
 
     }
@@ -175,7 +169,7 @@ public class Torneo implements Serializable{
 
     public void nombrarGanador(){
         if(candidatos.size() == 1){
-            System.out.println(ANSI_CYAN + "El ganador del torneo es: " + candidatos.pop().getNombre() + ANSI_RESET);
+            System.out.println(Colors.ANSI_CYAN + "El ganador del torneo es: " + candidatos.pop().getNombre() + Colors.ANSI_RESET);
         } 
     }
         
