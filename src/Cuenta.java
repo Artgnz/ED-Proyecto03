@@ -35,6 +35,7 @@ public class Cuenta implements Serializable{
      * Método que muestra el saldo disponible en la cuenta
      */
     public double getSaldo() {
+        historialCuenta.add("Se revisó el saldo.");
         return saldoDisponible;
     }
 
@@ -43,6 +44,7 @@ public class Cuenta implements Serializable{
      * @param saldo
      */
     public double setSaldo(double saldo) {
+        historialCuenta.add("Se modificó el saldo");
         return saldoDisponible += saldo;
     }
 
@@ -67,7 +69,6 @@ public class Cuenta implements Serializable{
      * @param cantidad a retirar
      */
     public void retirarApuesta(double cantidad) {
-            historialApuestasHechas.add("Se hizo una apuesta");
             this.saldoDisponible -= cantidad;
         }
     
@@ -90,7 +91,7 @@ public class Cuenta implements Serializable{
      * @param cantidad que se ganó
      */
     public void depositarPremio(double cantidad) {
-        historialApuestasHechas.add("Se ganó una apuesta");
+        historialApuestasHechas.add("Se ganó una apuesta por " + cantidad + "\n");
         this.saldoDisponible += cantidad;
     }
 
@@ -99,6 +100,7 @@ public class Cuenta implements Serializable{
      * Método para consultar el saldo de la cuenta
      */
     public String consultarSaldo() {
+        historialCuenta.add("Se consultó el saldo disponible\n");
         return "Usted cuenta con " + this.saldoDisponible;
     }
 
@@ -122,8 +124,8 @@ public class Cuenta implements Serializable{
             System.out.println("No se puede apostar esa cantidad de dinero porque no tiene saldo suficiente");
         } else {
             this.saldoDisponible -= cantidad;
-            historialCuenta.add("Se realizó una apuesta por: "+ cantidad);
-            historialApuestasHechas.add("Se realizó una apuesta por: "+ cantidad);
+            historialCuenta.add("Se realizó una apuesta por: "+ cantidad + "\n");
+            historialApuestasHechas.add("Se realizó una apuesta por: "+ cantidad + "\n");
         }
     }
 

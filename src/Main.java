@@ -14,6 +14,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import src.edd.Carrera;
+import src.edd.Serializador;
 import src.edd.Usuarios;
 
 import java.io.InputStreamReader;
@@ -118,12 +119,16 @@ public class Main {
                         timer.schedule(temporizador, 1000 * 15);
                         thread2.start();
                         Scanner scan = new Scanner(System.in);
-                        int respuesta = scan.nextInt();
+                        int respuesta = -1;
+                        try {
+                            respuesta = scan.nextInt();
+                        } catch (Exception e) {
+                        }
                         timer.cancel();
                         if (respuesta == -2) {
                             thread2.interrupt();
                             opcion = 3;
-                            System.out.println(ANSI_CYAN + "Vuelva pronto :)" + ANSI_RESET);
+                            System.out.println("Vuelva pronto, " + usuario.getNombreUsuario() + " :)");
                             bandera = false;
                             break;
                         }
@@ -131,11 +136,10 @@ public class Main {
                             System.out.println(ANSI_RED + "Como introdujo su respuesta cuando terminó el tiempo, no será considerado en esta partida." + ANSI_RESET);
                             respuesta = (respuesta == -2 ? -2 : -1);
                         }
-                        // while (thread2.isAlive()) {
-
-                        // }
                         torneo.nuevaPartida(usuario, usuarioCuenta, respuesta, thread2);
+                        Serializador.serializar("usuarios.ser", usuario);
                     }
+                    Serializador.serializar("usuarios.ser", usuario);
                     if (bandera) {
                         System.out.println("El torneo ha finalizado.");
                         torneo.nombrarGanador();
@@ -177,19 +181,24 @@ public class Main {
                     timer.schedule(temporizador, 1000 * 15);
                     thread2.start();
                     Scanner scan = new Scanner(System.in);
-                    int respuesta = scan.nextInt();
+                    int respuesta = -1;
+                    try {
+                        respuesta = scan.nextInt();
+                    } catch (Exception e) {
+                    }
                     timer.cancel();
+                    if (respuesta == -2) {
+                        thread2.interrupt();
+                        opcion = 3;
+                        System.out.println("Vuelva pronto, " + usuario.getNombreUsuario() + " :)");
+                        break;
+                    }
                     if (!thread2.isAlive()) {
                         System.out.println(ANSI_RED + "Como introdujo su respuesta cuando terminó el tiempo, no será considerado en esta carrera." + ANSI_RESET);
                         respuesta = -1;
                     }
-                    if (respuesta == -2) {
-                        thread2.interrupt();
-                        opcion = 3;
-                        System.out.println("Vuelva pronto" + usuario.getNombreUsuario() + " :)");
-                        break;
-                    }
                     carrera.ejecutarCarrera(usuario, usuarioCuenta, respuesta, thread2);
+                    Serializador.serializar("usuarios.ser", usuario);
                 }
                 break;
             case 3:
