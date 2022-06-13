@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.Random;
 import java.text.DecimalFormat;
 import java.util.Arrays;
+
 /**
  *Clase que representa a una carrera del sistema de apuestas.
  * @author Arturo González Peñaloza
@@ -19,12 +20,6 @@ public class Carrera{
     private Usuario usuario;
     private Cuenta cuenta;
     private static Scanner sc;
-
-	public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_RED = "\u001B[31m";
 
     /**
      *Constructor sin parametros.
@@ -68,14 +63,14 @@ public class Carrera{
         this.usuario = usuario;
         this.cuenta = cuenta;
 	if (respuesta == 1) {
-	    System.out.println(ANSI_GREEN + "Momento de apostar, apueste al caballo que crea que va a ganar." + ANSI_RESET);
+	    System.out.println(Colors.ANSI_GREEN + "Momento de apostar, apueste al caballo que crea que va a ganar." + Colors.ANSI_RESET);
 	    sc = new Scanner(System.in);
 
-	    int opcion = getInt(ANSI_GREEN + "Introduzca el numero del caballo (1-10): " + ANSI_RESET, "Ingrese una opcion valida.",1,10);
+	    int opcion = Entrada.getInt(Colors.ANSI_GREEN + "Introduzca el numero del caballo (1-10): " + Colors.ANSI_RESET, "Ingrese una opcion valida.",1,10);
 
 	    sc.nextLine();
 	
-	    System.out.println(ANSI_GREEN + "Introduzca la cantidad a apostar: " + ANSI_RESET);
+	    System.out.println(Colors.ANSI_GREEN + "Introduzca la cantidad a apostar: " + Colors.ANSI_RESET);
 	
 	    double entrada = sc.nextDouble();
 	
@@ -91,7 +86,7 @@ public class Carrera{
 	    }
 	    
 	    while (thread.isAlive()) {}
-	    System.out.println(ANSI_CYAN + "Comienza carrera!" + ANSI_RESET);
+	    System.out.println(Colors.ANSI_CYAN + "Comienza carrera!" + Colors.ANSI_RESET);
 	
 	    this.rankeo();
 
@@ -99,14 +94,14 @@ public class Carrera{
 
 	    this.imprimirResultados();
 
-	    System.out.println(ANSI_CYAN + "Ganador : " + ganador.getNombre() + ANSI_RESET);
+	    System.out.println(Colors.ANSI_CYAN + "Ganador : " + ganador.getNombre() + Colors.ANSI_RESET);
 
 	    if(apostado.equals(ganador)){
-		System.out.println(ANSI_GREEN + "Felicidades, has ganando la apuesta!"+ ANSI_RESET);
+		System.out.println(Colors.ANSI_GREEN + "Felicidades, has ganando la apuesta!"+ Colors.ANSI_RESET);
 		apostado.calcularMonto(entrada);
 		cuenta.depositarPremio(apostado.getMonto());
 	    } else {
-		System.out.println(ANSI_RED + "Has perdido." + ANSI_RESET);
+		System.out.println(Colors.ANSI_RED + "Has perdido." + Colors.ANSI_RESET);
 	    }
 	
 	    for(int i=0; i<10; i++){
@@ -115,17 +110,17 @@ public class Carrera{
 
 	    this.incrementarId();
 	} else {
-	    System.out.println(ANSI_CYAN + "Comienza carrera!" + ANSI_RESET);
+	    System.out.println(Colors.ANSI_CYAN + "Comienza carrera!" + Colors.ANSI_RESET);
 	
 	    this.rankeo();
 
-	    System.out.println(ANSI_RED + "acaba rankeo" + ANSI_RESET);
+	    System.out.println(Colors.ANSI_RED + "acaba rankeo" + Colors.ANSI_RESET);
 
 	    Competidor ganador = ranking[0];
 
 	    this.imprimirResultados();
 
-	    System.out.println(ANSI_CYAN + "Ganador : " + ganador.getNombre() + ANSI_RESET);
+	    System.out.println(Colors.ANSI_CYAN + "Ganador : " + ganador.getNombre() + Colors.ANSI_RESET);
 
 	    for(int i=0; i<10; i++){
 		competidores[i].actualizarHistorial(i+1);
@@ -238,7 +233,7 @@ public class Carrera{
      *Imprime las cuotas de los jugadores.
      */
     public void imprimirCuotas(){
-	System.out.println(ANSI_CYAN + "Cuotas de los competidores: " + ANSI_RESET);
+	System.out.println(Colors.ANSI_CYAN + "Cuotas de los competidores: " + Colors.ANSI_RESET);
 	DecimalFormat formato = new DecimalFormat("#.##");
 	for(int i=0; i<10; i++){
 	    System.out.println(competidores[i].getNombre() + ": " + formato.format(competidores[i].getCuota()));
@@ -248,39 +243,14 @@ public class Carrera{
      *Imprime los resultados de la carrera.
      */
     public void imprimirResultados(){
+
+	System.out.println(Colors.ANSI_GREEN + "Resultados de la carrera: " + Colors.ANSI_RESET);
 	int n;
-	System.out.println(ANSI_GREEN + "Resultados de la carrera: " + ANSI_RESET);
+
 	for(int i = 0; i<10;i++){
 	    n = i +1;
 	    System.out.println("Posicion " + n + ": " + ranking[i].getNombre());
 	}
-    }
-
-    /**
-     * Método que pide al usuario un número entero.
-     * @param mensaje Un mensaje que le indica al usuario que opciones puede ingresar.
-     * @param error Mensaje que indica que se introdujo una opción inválida.
-     * @param min El valor mínimo que se puede introducir.
-     * @param max El valor máximo que se puede introducir.
-     * @return int El número que el usuario introduzca.
-     */
-    public static int getInt(String mensaje, String error, int min, int max) {
-        int val;
-
-        while (true) {
-            System.out.println(mensaje);
-            if (sc.hasNextInt()) {
-                val = sc.nextInt();
-                if (val < min || max < val) {
-                    System.out.println(error);
-                } else {
-                    return val;
-                }
-            } else {
-                sc.next();
-                System.out.println(error);
-            }
-        }
     }
  
 }

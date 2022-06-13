@@ -9,23 +9,24 @@ import java.io.Serializable;
  * Clase que moldea a los candidatos que participarán en el Torneo
  */
 public class Candidato implements Serializable {
-    
+
     int minimaHabilidad;
     int maximaHabilidad;
     String nombre;
-    
+
     double habilidadDecimal;
     int habilidad;
 
     /**
      * Método contructor de candidatos
+     * 
      * @param nombre
      */
     public Candidato(String nombre) {
         this.nombre = nombre;
-        this.habilidadDecimal = Math.random()*(400-50);
+        this.habilidadDecimal = Math.random() * (400 - 50);
         this.habilidad = (int) habilidadDecimal;
-       
+
     }
 
     /**
@@ -45,9 +46,8 @@ public class Candidato implements Serializable {
     /**
      * Método que modifica la habilidad del candidato.
      */
-    public void setHabilidad(int  habilidad) {
-       this.habilidad = habilidad;
-    }
-    
+    public void setHabilidad(int habilidad) {
+        this.habilidad = habilidad;
     }
 
+}
