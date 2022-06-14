@@ -3,12 +3,12 @@ PROYECTO 3 #SISTEMA DE APUESTAS#
 Integrantes:
 Gonzáles Peñaloza Arturo
 Osorio Morales Fernanda Ameyalli
-Emilio Arsenio
+Raudry Rico Emilio Arsenio
 
 Para compilar el programa:
-
+javac -d . src/*.java
 Para ejecutar el programa:
-
+java src.edd.Main
 
 Estructura del proyecto:
 Clases:

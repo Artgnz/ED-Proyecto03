@@ -5,6 +5,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 /**
  * Clase Main que moldea el funcionamiento del sistema de apuestas
+ * @author Osorio Morales Fernanda Ameyalli
+ * @author Raudry Rico Emilio Arsenio
+ * @author González Peñaloza Arturo
  */
 public class Main {
 

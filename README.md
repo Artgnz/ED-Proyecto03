@@ -1,7 +1,7 @@
 # Proyecto3
 Sistema de apuestas
 Estructura del proyecto:
-Clases:
+# Clases:
 1. Colors:
    Esta clase contiene cadenas de texto para dar formato a las cadenas de texto en la terminal. 
    Todos sus atributos son constantes y estáticos.
@@ -22,7 +22,7 @@ por lo siguiente:
 2. Similarmente, se intentó algo similar con BufferedReader, donde se invocaba el método readLine de bufferedReader únicamente si había entrada en la terminal. Este método no era 
    consistente en la lectura de datos, es decir, se detenía el hilo satisfactoriamente, sin embargo, al momento de jugar la siguiente partida/ronda, si el usuario introducía un dígito, 
    este no siempre lo leía el bufferedReader. 
-3. Otra alternativa que tomamos consistió en usar las clases "Future", "ExecutorService" y "Callable" de java.util.concurrent. Con esta opción, usabamos el método submit de ExecutorService con 
+3. Otra alternativa que tomamos consistió en usar las clases "Future", "ExecutorService" y      "Callable" de java.util.concurrent. Con esta opción, usabamos el método submit de ExecutorService con 
    "task" que pedía la entrada de datos. Si después de cierto tiempo no se introducían datos, este hilo era interrumpido. Similarmente que con la segunda opción que tomamos, 
    la ejecución del programa continuaba, sin embargo, al momento de que el usuario introdujera un número después de no haberlo introducido en una ronda, el número no lo leía el BufferedReader.
 4. Finalmente, optamos por lo siguiente:
@@ -31,3 +31,6 @@ por lo siguiente:
    
    De esta forma, logramos que el usuario únicamente pudiera aceptar la opción de apostar durante el tiempo de espera entre partida y partida. Además, con esta opción
    no surgen problemas al momento de ver más partidas/rondas.
+5. En cuanto al funcionamiento del Torneo, lo que supuso un tanto de conflicto fue la forma de 
+   entender las instrucciones respecto a las apuestas y los montos, puesto que en ocasiones el PDF no era suficientemente claro respecto a ciertas condiciones, por ejemplo, la cantidad a apostar que el Usuario decidiría, puesto que primero se había entendido como que únicamente podría apostar la cuota de cada candidato y luego llegamos a la conclusión de que podía apostar cualquier otra cantidad que el deseara y la cuota serviría para ver cuanto dinero ganaría en caso de que la apuesta resultara favorable.
+6. El resto de la lógica del funcionamiento del Torneo fue dividido por clases: Candidato,   Torneo, así como requerimos el uso de Usuario y Cuenta para involucrar los movimientos de "dinero" que se estarían llevando a cabo. 

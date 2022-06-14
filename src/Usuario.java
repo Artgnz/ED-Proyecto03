@@ -7,6 +7,9 @@ import java.io.Serializable;
 
 /**
  * Clase que moldea el comportamiento de los usuarios que podrán apostar en nuestro sistema de apuestas
+ * @author Osorio Morales Fernanda Ameyalli
+ * @author Raudry Rico Emilio Arsenio
+ * @author González Peñaloza Arturo
  */
 public class Usuario implements Comparable, Serializable {
     private Cuenta cuenta;

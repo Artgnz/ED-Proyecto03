@@ -8,6 +8,9 @@ import java.io.Serializable;
 
 /**
  * Clase que moldea la forma en la que irán llevándose a cabo los torneos
+ * @author Osorio Morales Fernanda Ameyalli
+ * @author Raudry Rico Emilio Arsenio
+ * @author González Peñaloza Arturo
  */
 public class Torneo implements Serializable{
 

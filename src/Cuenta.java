@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 /**
  * Clase que moldea las cuentas de los usuarios que participarán en el torneo
+ * @author Osorio Morales Fernanda Ameyalli
+ * @author Raudry Rico Emilio Arsenio
+ * @author González Peñaloza Arturo
  */
 public class Cuenta implements Serializable {
 
