@@ -1,7 +1,7 @@
 PROYECTO 3 #SISTEMA DE APUESTAS#
 
 Integrantes:
-Gonzáles Peñaloza Arturo
+González Peñaloza Arturo 319091193
 Osorio Morales Fernanda Ameyalli
 Raudry Rico Emilio Arsenio
 

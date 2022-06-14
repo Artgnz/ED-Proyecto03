@@ -1,5 +1,15 @@
 # Proyecto3
+
 Sistema de apuestas
+
+Integrantes:
+González Peñaloza Arturo 319091193
+Osorio Morales Fernanda Ameyalli
+Emilio Arsenio
+
+Para compilar el programa:
+
+Para ejecutar el programa:
 Estructura del proyecto:
 # Clases:
 1. Colors:
