@@ -2,8 +2,8 @@ PROYECTO 3 #SISTEMA DE APUESTAS#
 
 Integrantes:
 González Peñaloza Arturo 319091193
-Osorio Morales Fernanda Ameyalli
-Raudry Rico Emilio Arsenio
+Osorio Morales Fernanda Ameyalli 319092846
+Raudry Rico Emilio Arsenio 318289276
 
 Para compilar el programa:
 javac -d . src/*.java

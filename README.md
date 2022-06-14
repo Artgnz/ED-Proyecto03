@@ -4,8 +4,8 @@ Sistema de apuestas
 
 Integrantes:
 González Peñaloza Arturo 319091193
-Osorio Morales Fernanda Ameyalli
-Emilio Arsenio
+Osorio Morales Fernanda Ameyalli 319092846
+Rico Raudry Emilio Arsenio 318289276
 
 Para compilar el programa:
 
